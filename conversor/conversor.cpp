@@ -1,10 +1,12 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 int celFahr(int T);
 int fahrCel(int T);
-double usdBrl(int n, double cotacao);
-double brlUsd(int n, double cotacao);
+double usdBrl(int n);
+double brlUsd(int n);
 int horaMinuto(int t);
 int minutoSegundo(int t);
 
@@ -39,17 +41,16 @@ int main() {
             cout << "1. Dólar -> Real\n" << "2. Real -> Dólar\n";
             cout << "Opção: ";
             cin >> opt;
-            double cota = 5.8071;
             switch (opt) {
                 case 1:
                     cout << "Valor em Dólar: ";
                     cin >> n;
-                    cout << "Resultado: R$" << usdBrl(n, cota) << '\n';
+                    cout << "Resultado: R$" << usdBrl(n) << '\n';
                     break;
                 case 2:
                     cout << "Valor em Real: ";
                     cin >> n;
-                    cout << "Resultado: US$" << brlUsd(n, cota) << '\n';
+                    cout << "Resultado: US$" << brlUsd(n) << '\n';
                     break;
             }
         } else if (opt == 3) {
@@ -83,9 +84,28 @@ int fahrCel(int T) {
     return (T - 32) /9 * 5;
 }
 
-double usdBrl(int n, double cotacao) {
+double getExchange() {
+    system("python exchange.py");
+
+    string line;
+    ifstream file ("exchange.txt");
+    double cotacao = 0;
+    if (file.is_open()) {
+        getline(file, line);
+        cotacao = stod(line);
+        file.close();
+
+    } else {
+        cout << "Unable to open exchange.txt";
+    }
+    return cotacao;
+}
+
+double usdBrl(int n) {
+    double cotacao = getExchange();
     return n * cotacao;
 }
-double brlUsd(int n, double cotacao) {
+double brlUsd(int n) {
+    double cotacao = getExchange();
     return n / cotacao;
 }
