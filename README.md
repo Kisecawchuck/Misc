@@ -1,2 +1,2 @@
 # Miscelânea
-Programas em C++ e outras coisas relacionadas à faculdade.
+Programas que não merecem um repositório próprio e outras coisas relacionadas à faculdade.
