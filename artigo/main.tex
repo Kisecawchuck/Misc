@@ -1,0 +1,118 @@
+\documentclass[conference]{IEEEtran}
+% \IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage[portuguese]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\title{Sistemas de Informação de Transporte de Mercadorias}
+\author{
+\IEEEauthorblockN{Pedro Henrique L.B.T Bomfim, Robson França, Igor Nascimento}
+\IEEEauthorblockA{\textit{Universidade de São Paulo}}
+}
+\date{April 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+A intensa globalização e o crescimento do comércio eletrônico colocaram os sistemas de informação (SI) em um papel central no setor de transporte de mercadorias. Contribuindo para a eficiência, segurança e cumprimento de prazos, empresas como os Correios, FedEx, DHL e UPS utilizam esses sistemas para gerenciar o envio de milhões de encomendas diariamente.
+
+Este artigo tem como objetivo introduzir os conceitos de sistemas de informação aplicados ao transporte de mercadorias, com base, principalmente, na obra de K. C. Laudon e J. P. Laudon \cite{laudon2015}.
+
+*****************Robson*****************
+
+***********************************
+\section{Características não determinísticas}
+\subsection{O que são características não determinísticas?}
+Características não determinísticas, em suma, são representadas como funções dos sistemas de informação que não são dependentes da máquina, mas sim do usuário que estiver usando o sistema. Logo, isso acaba por gerar a possibilidade de se produzirem diversas saídas diferentes, a partir de quem estiver controlando o sistema na situação específica.
+\subsection{Características não determinísticas no SI de transporte de mercadorias}
+A partir deste breve resumo sobre o que é uma característica não determinística, podemos aplicar o conceito à temática dos SI(Sistema de Informação) de transporte de mercadorias. Nesta perspectiva, a parte não determinística dos sistemas de informação ocorre principalmente na presença de situações inesperadas que não faziam parte do planejado no trajeto da mercadoria até o cliente, pois funções como pagamentos e taxas precisam ser feitas pela máquina por terem influência em valores pagos tanto por quem compra quanto por quem vende o produto e não é permissivo ter mudanças.
+\subsection{Exemplo genérico e na realidade}
+Caso aconteça alguma enchente, acidente ou seja necessário passar por alguma área perigosa da cidade que o GPS não tenha indicado, o funcionário que estiver dirigindo e controlando o sistema naquele momento poderá alterar o trajeto, caso prefira; entretanto, isso depende exclusivamente de quem estiver operando. Um exemplo concreto disso pode ser observado em uma empresa de entregas como os Correios descrito no passo a passo a seguir:
+
+\begin{enumerate}
+    \item Em uma entrega programada para o centro de São Paulo, dois motoristas distintos, usando o mesmo sistema e com os mesmos dados de destino e horário, são designados para a tarefa.
+    
+    \item Durante o trajeto, surge um congestionamento inesperado.
+    
+    \item O primeiro motorista decide seguir o GPS, mesmo passando por uma área perigosa.
+    
+    \item O segundo motorista escolhe contornar por uma via mais segura, porém mais longa.
+    
+    \item Ambos estão operando sob o mesmo sistema, mas o trajeto da entrega ou tecnicamente, a "saída" varia de acordo com o julgamento individual de cada motorista.
+\end{enumerate}
+
+\section{Organização Usuária}
+\subsection{Quais organizações utilizam deste SI?}
+
+Em geral, os sistemas de informação que auxiliam o transporte de mercadorias são utilizados por empresas de logística, transporte ou distribuição, tanto tradicionais quanto não tradicionais. Esta mistura de formas de trabalhar diferentes no mesmo meio se deve ao crescimento de empresas inovadoras que ganharam destaque no mercado, ao lado de outras mais antigas e consolidadas. Dentre essas duas categorias, destacam-se:
+\begin{itemize}
+    \item Correios
+    \item FedEx
+    \item Amazon
+    \item DHL
+    \item Mercado Livre
+\end{itemize}
+
+\subsection{Estrutura e trabalhadores}
+Apesar de terem formas diferentes de estrutura, hierarquia entre outras coisas, as funções exercidas pelos funcionários dessas empresas ligados a está área são, em grande parte, semelhantes, envolvendo cargos como operadores de logística, analistas de logística, armazenistas, compradores, coordenadores de transporte, gerentes de compras, gerentes de planejamento, motorista e etc\cite{cargos}. 
+
+\subsection{Propósito das organizações}
+O que une todas essas empresas é o propósito de oferecer maior qualidade, segurança e agilidade no transporte de mercadorias, atendendo tanto às necessidades de quem compra quanto de quem vende. Esse objetivo visa garantir entregas pontuais, com rastreamento confiável e redução de falhas, melhorando a relação entre clientes e fornecedores.
+
+\section{Qual a função do SI nestas empresas?}
+\subsection{Objetivo}
+
+O principal objetivo da criação deste tipo de sistema de informação é justamente apoiar os objetivos previamente citados das organizações que as utilizam, facilitando tanto eles oferecerem a sua função a seus clientes quanto facilitar a organização dentro da empresa, conseguindo o \textit{feedback} dos seus clientes, facilitando a logística da saída das entregas, segurança das mesmas e diminuindo a porcentagem de erro humano. A seguir, cada um desses pontos é detalhado\cite{silogistica}.
+
+\subsubsection{Melhorar a organização interna da empresa}
+Por meio do Sistema de Gerenciamento de Armazéns (SGA), foi possível melhorar o controle dos produtos que ainda estão para chegar, daqueles que estão saindo para entrega ou que permanecem estocados no armazém, além de facilitar o monitoramento da preparação do embarque desses pedidos.
+
+\subsubsection{Obter \textit{feedback} dos clientes}
+Por meio do Sistema de Gerenciamento de Pedidos (SGP), o contato inicial entre o cliente e a transportadora tornou-se significativamente mais fácil, tanto na busca pelo serviço quanto pelo produto.
+
+\subsubsection{Aprimoramento da logística de saída}
+Com o auxílio do Sistema de Gerenciamento de Transportes (SGT), funções como cálculo do frete, faturamento das entregas e programação dos embarques foram automatizados, agilizando e tornando mais eficiente todos estas etapas necessárias.
+
+\subsubsection{Aumentar a segurança das entregas}
+Por causa dos sistemas de GPS e rastreamento dos pedidos e motoristas as entregas ficaram muito mais seguras durante o trajeto até o cliente.
+
+\subsubsection{Reduzir falhas humanas}
+Por todos esses motivos, os Sistemas de Informação passaram a automatizar esses processos, reduzindo significativamente a necessidade de intervenção humana e, consequentemente, diminuindo a probabilidade de erros operacionais.
+
+
+***************pedro*********************
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% IGOR %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+    \item  Explore como esse tipo de SI atua para ajudar a organização que o usa a atingir vantagem competitiva. Pode explorar isso por meio das forças de Porter.
+    Capítulo 3, página 72
+    \item Quais partes, departamentos ou áreas funcionais da organização usam o SI? Quais níveis hierárquicos da organização usam o SI? Que tipo de SI ele é, considerando os tipos básicos/tradicionais de SI (SPT, SIG, SAD, SAE)? Motive, justifique, exemplifique essas respostas.
+    SCM (supply chain management), sistema intraorganizacionais, possivelmente SAD
+    \item Explore questões éticas, sociais e políticas envolvidas com o uso desse SI. Trabalhe usando os conceitos dos círculos concêntricos apresentados no livro de Laudon e Laudon.
+\end{itemize}
+
+\section{Vantagem competitiva}
+Empresas de transporte de mercadorias utilizam sistemas de informação para gerenciar diversas operações logísticas, desde o recebimento até a entrega final da encomenda ao cliente. Estes sistemas auxiliam o transporte do começo ao fim, desde o rastreamento de encomendas em tempo real até aprimorar o atendimento ao cliente.
+
+
+O modelo das cinco forças de Porter oferece 
+\subsection{Poder de Barganha} 
+
+\section{Usos e hierarquia}
+\section{Questões éticas}
+\nocite{*}
+\bibliographystyle{IEEEtran}
+\bibliography{referencias}
+\end{document}
