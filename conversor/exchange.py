@@ -8,9 +8,9 @@ def get_usd_to_brl():
         response.raise_for_status()
 
         data = response.json()
-        brl = data["usd"]["brl"]
-        print(brl)
-
+        brl = str(data["usd"]["brl"])
+        with open('exchange.txt', 'w') as file:
+            file.write(brl)
 
     except requests.RequestException as e:
         print("Error fetching conversion: ", e)
