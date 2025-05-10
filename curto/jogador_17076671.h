@@ -1,21 +1,21 @@
 typedef enum {
-	Quatro,
-	Cinco,
-	Seis,
-	Sete,
-	Q,
-	J,
-	K,
-	As,
-	Dois,
-	Tres
+    Quatro,
+    Cinco,
+    Seis,
+    Sete,
+    Q,
+    J,
+    K,
+    As,
+    Dois,
+    Tres
 } Valor;
 
 typedef enum {
-	O,
-	E,
-	C,
-	P
+    O,
+    E,
+    C,
+    P
 } Naipe;
 
 typedef struct {
