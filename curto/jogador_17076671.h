@@ -1,4 +1,4 @@
-enum Valor {
+typedef enum {
 	Quatro,
 	Cinco,
 	Seis,
@@ -9,16 +9,16 @@ enum Valor {
 	As,
 	Dois,
 	Tres
-};
+} Valor;
 
-enum Naipe {
+typedef enum {
 	O,
 	E,
 	C,
 	P
-};
+} Naipe;
 
 typedef struct {
-	Valor;
-	Naipe;
+    Valor valor;
+    Naipe naipe;
 } Carta;
