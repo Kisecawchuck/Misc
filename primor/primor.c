@@ -11,7 +11,7 @@ Node* inserirDivisor(long divisor, Node* divisores);
 int imprimirDivisores(Node* divisores, int dividendo);
 void destruirDivisores(Node* divisores);
 
-/* Verifica se um número é primo */
+/* Verifica se um número é primo e imprime os divisores */
 int main() {
 	long n;
     printf("Primo?: ");
