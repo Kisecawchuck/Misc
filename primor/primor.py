@@ -11,7 +11,7 @@ for i in range(1, int(math.sqrt(n))):
 divisores.sort()
 print(f"Divisores: {divisores}")
 
-if (len(divisores) <= 2):
+if (len(divisores) == 2):
     print(f"{n} é primo")
 else:
     print(f"{n} não é primo")
