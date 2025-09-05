@@ -1,18 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define Tabela Casela**
-#define Linha Casela*
-
-typedef enum {
-    False,
-    True,
-} bool;
-
-typedef struct {
-    bool exists;
-    bool belongs;
-} Casela;
+#include "meubool.h"
+#include "mochila.h"
 
 int main() {
     int n, K;
