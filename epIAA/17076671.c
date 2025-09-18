@@ -27,7 +27,7 @@ typedef Linha* Tabela;
 static int n, m;
 static bool **visitado;
 
-int arredonda(double x);
+int arredondar(double x);
 void encontrarIlhas(int x, int y, int **mapa);
 int destruirLixo(int x, int y, int **mapa);
 
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < m; ++j)
             if (ilhas[i][j] != 0) {
                 int P = destruirLixo(i, j, ilhas);
-                S[idx] = arredonda((double) P / (conteiner.x * conteiner.y));
+                S[idx] = arredondar((double) P / (conteiner.x * conteiner.y));
                 printf("%d ", S[idx]);
                 ++idx;
             }
@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
     P[0][0].exists = True;
     for (int i = 1; i <= p; ++i)
         P[0][i].exists = False;
-    for (int i = 1; i <= n; ++i)
+    for (int i = 1; i <= N; ++i)
         for (int k = 0; k <= p; ++k) {
             P[i][k].exists = False;
             if (P[i - 1][k].exists == True) {
@@ -102,6 +102,12 @@ int main(int argc, char *argv[]) {
                 P[i][k].belongs = True;
             }
         }
+    if (P[N][p].exists == False)
+        printf("Nao ha resposta valida!\n");
+    else {
+        // TODO Encontrar uma maneira de caminho;
+        ;
+    }
 
     // Fecha o arquivo;
     fclose(f);
@@ -112,11 +118,15 @@ int main(int argc, char *argv[]) {
     }
     free(ilhas);
     free(visitado);
+    free(S);
+    for (int i = 0; i < N + 1; ++i)
+        free(P[i]);
+    free(P);
 
     return 0;
 }
 
-int arredonda(double x) {
+int arredondar(double x) {
     if (x > 0 && x < 1) return 1;
     else return x;
 }
