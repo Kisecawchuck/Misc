@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
         }
 
     // Procura pela quantidade de ilhas;
-    int N = 0;
+    int N = 0; // Nº de ilhas;
     for (int i = 0; i < n; ++i)
         for (int j = 0; j < m; ++j)
             if (ilhas[i][j] != 0 && visitado[i][j] == False) {
