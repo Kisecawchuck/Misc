@@ -13,6 +13,12 @@ typedef struct {
     bool belongs;
 } Casela;
 
+typedef struct {
+    int x;
+    int y;
+    int z;
+} Conteiner;
+
 // Cria o tipo para Array de Casela e Matriz de Casela;
 typedef Casela* Linha;
 typedef Linha* Tabela;
@@ -26,6 +32,9 @@ void encontrarIlhas(int x, int y, int **mapa);
 int destruirLixo(int x, int y, int **mapa);
 
 int main(int argc, char *argv[]) {
+    Conteiner conteiner;
+    conteiner.x = 3;
+    conteiner.y = 2;
     // Entrada de dados;
     int p = atoi(argv[1]);
     n = atoi(argv[2]);
@@ -68,7 +77,7 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < m; ++j)
             if (ilhas[i][j] != 0) {
                 int P = destruirLixo(i, j, ilhas);
-                S[idx] = arredonda((double) P / p);
+                S[idx] = arredonda((double) P / (conteiner.x * conteiner.y));
                 printf("%d ", S[idx]);
                 ++idx;
             }
