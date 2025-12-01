@@ -2,28 +2,98 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 #define TAMANHO 10000
 
-typedef struct {
+enum { _Lista, _Arvore };
+typedef struct _NO_ARVORE {
     char palavra[46];
     int linha;
-} Ele;
-typedef struct _NO {
-    char palavra[46];
-    int linha;
-    struct _NO *proximo;
+    struct _NO_ARVORE *esq;
+    struct _NO_ARVORE *dir;
 } No;
 typedef struct {
-    No *primeiro;
-} Lista;
-int cmp(const void *A, const void *B) {
-    Ele a = *(Ele*)A;
-    Ele b = *(Ele*)B; 
+    No *raiz;
+} Arvore;
 
-    return strcasecmp(a.palavra, b.palavra);
+Arvore *cria_arvore() {
+    Arvore *arvore = malloc(sizeof(Arvore));
+    arvore->raiz = NULL;
+    return arvore;
 }
 
+No * insere_ord_rec(No *raiz, No *novo){
+	if (raiz) {
+		if (strcasecmp(novo->palavra, raiz->palavra) != 0) {
+			if (strcasecmp(novo->palavra, raiz->palavra) < 0) raiz->esq = insere_ord_rec(raiz->esq, novo);
+			else raiz->dir = insere_ord_rec(raiz->dir, novo);
+		}
+		return raiz;
+	}
+	return novo;
+}
+
+bool insere_ord(Arvore *arvore, char *e, int l) {
+	No * novo = malloc(sizeof(No));
+	
+	strcpy(novo->palavra, e);
+	novo->esq = novo->dir = NULL;
+    novo->linha = l;
+
+    No *p = arvore->raiz;
+	arvore->raiz = insere_ord_rec(arvore->raiz, novo);
+	return p == arvore->raiz ? false : true;
+}
+
+No * busca_rec(No * no, char *e){
+	No * aux;
+	if (no) {
+		if (strcasecmp(e, no->palavra) == 0) return no;
+
+		aux = busca_rec(no->esq, e);
+		if (aux) return aux;
+		return busca_rec(no->dir, e);
+	}
+	return NULL;
+}
+
+No * busca(Arvore * arvore, char *e){
+	return busca_rec(arvore->raiz, e);	
+}
+
+int imprime_rec(No * no){
+
+	// percurso in-ordem para a impressão dos elementos
+
+	if(no){
+		int m = imprime_rec(no->esq) + 1;
+		printf(" %s", no->palavra);
+		return imprime_rec(no->dir) + m;
+	}
+    return 0;
+}
+
+int imprime(Arvore * arvore){
+
+	printf("Elementos na arvore:");
+	return imprime_rec(arvore->raiz);
+}
+
+
+int max(int a, int b) { return a > b ? a : b; } 
+
+int altura(No * no){
+
+	if(no) {
+
+		return max(altura(no->esq), altura(no->dir)) + 1;
+	}
+
+	return -1;
+}
+
+/*
 Lista *cria_lista() {
     Lista *lista = malloc(sizeof(Lista));
     lista->primeiro = NULL;
@@ -31,7 +101,6 @@ Lista *cria_lista() {
     return lista;
 }
 
-/* insere: Insere um paciente na lista ligada; */
 void insere(Lista *lista, char *wd, int linha) {
     No *novo = malloc(sizeof(No));
 
@@ -51,7 +120,7 @@ void imprime(Lista *lista) {
     putchar('\n');
 }
 
-/* destroi_lista: Libera a lista ligada; */
+destroi_lista: Libera a lista ligada; 
 void destroi_lista(Lista *lista) {
     No *p = lista->primeiro;
     No *tmp;
@@ -63,59 +132,44 @@ void destroi_lista(Lista *lista) {
     }
     free(lista);
 }
+*/
 
 int main(int argc, char *argv[]) {
-    FILE *INPUT;
+    FILE *ENTRADA;
     if (argc < 3) {
         printf("Uso: %s <nome_do_arquivo>.txt <tipo_de_índice>\n", argv[0]);
     } else {
         printf("Arquivo: \'%s\'\n", argv[1]);
         printf("Tipo de indice: \'%s\'\n", argv[2]);
-        INPUT = fopen(argv[1], "r");
-        if (INPUT == NULL) {
+        ENTRADA = fopen(argv[1], "r");
+        if (ENTRADA == NULL) {
             printf("Erro! Impossível abrir o arquivo de entrada!\n");
             exit(1);
         }
 
-        char buffer[TAMANHO];
         int n_linhas = 0;
         int n_palavras = 0;
-        Lista *Palavras = cria_lista();
-        while (fgets(buffer, TAMANHO, INPUT)) {
+        int indice = strcasecmp(argv[2], "arvore") ? _Lista : _Arvore;
+        Arvore *arvore = cria_arvore();
+        char buffer[TAMANHO + 1];
+        while (ENTRADA && fgets(buffer, TAMANHO, ENTRADA)) {
             n_linhas++;
-            n_palavras++;
-            char *token = strtok(buffer, " -,.");
-            insere(Palavras, token, n_linhas);
-            while ((token = strtok(NULL, " -,.\n"))) {
-                insere(Palavras, token, n_linhas);
+
+            char *token = strtok(buffer, " -,./\n");
+            while (token) {
                 n_palavras++;
+                if (indice == _Arvore && insere_ord(arvore, token, n_linhas))
+                    n_palavras--;
+
+                token = strtok(NULL, " -,./\n");
             }
         }
+        int n = imprime(arvore);
         printf("Numero de linhas no arquivo: %d\n", n_linhas);
-        Ele *palavras = malloc(sizeof(Ele) * n_palavras);
-        No *p = Palavras->primeiro;
-        for (int i = 0; i < n_palavras; i++) {
-            strcpy(palavras[i].palavra, p->palavra);
-            palavras[i].linha = p->linha;
-            p = p->proximo;
+        printf("Total de palavras unicas indexadas: %05d\n", n);
+        if (indice == _Arvore) {
+            printf("Altura da arvore: %05d\n", altura(arvore->raiz));
         }
-        destroi_lista(Palavras);
-        qsort(palavras, n_palavras, sizeof(Ele), cmp);
-        printf("Lista:\n");
-        for (int i = 0; i < n_palavras; i++)
-            printf(" %s", palavras[i].palavra);
-        putchar('\n');
-        /*
-        int j = n_palavras - 1;
-        for (int i = 1; i <= n_linhas; i++) {
-            printf("Linha %04d:", i);
-            while (palavras[j].linha == i) {
-                printf(" %s", palavras[j].palavra);
-                j--;
-            }
-            putchar('\n');
-        }
-        */
 
         char comando[100];
         bool fim = false;
@@ -123,10 +177,18 @@ int main(int argc, char *argv[]) {
             printf("> ");
             scanf("%s", comando);
             if (strcmp(comando, "fim") == 0) return 0;
-            if (strcmp(comando, "busca") != 0) printf("Opcao invalida!\n");
-            else {
-
+            else if (strcmp(comando, "busca") == 0) {
+                scanf("%s", comando);
+                No *p = busca(arvore, comando);
+                if (p) {
+                    rewind(ENTRADA);
+                    for (int i = 0; i < p->linha; i++)
+                        fgets(buffer, sizeof(buffer), ENTRADA);
+                    printf("%04d: %s", p->linha, buffer);
+                }
             }
+            else printf("Opcao invalida!\n");
       }
     }
+    fclose(ENTRADA);
 }
