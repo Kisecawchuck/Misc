@@ -1,0 +1,312 @@
+\documentclass{report}
+
+\usepackage[portuguese]{babel}
+\usepackage{hyperref, fancyhdr}
+\usepackage{amsmath, amssymb}
+\usepackage{yhmath}
+\usepackage{tikz, xcolor}
+\usepackage[most]{tcolorbox}
+
+\setlength{\headheight}{13.07225pt}
+\lhead{\thepage}
+\cfoot{}
+\pagestyle{fancy}
+
+\newcommand{\D}{\mathop{}\!{d}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\arcsen}{\operatorname{arcsen}}
+\newcommand{\arco}{\operatorname{arco}}
+\newcommand{\raio}{\operatorname{raio}}
+\newcommand{\area}{\operatorname{\acute area}}
+\renewcommand{\arraystretch}{1.6}
+
+\newtheorem{exercicio}{Exercício}
+\newtheorem{teorema}{Teorema}[section]
+
+% Definindo o ambiente libretext
+\tcbset{
+    libretext/.style={
+        enhanced,
+        sharp corners,
+        attach boxed title to top right={yshift*=-\tcboxedtitleheight+12pt, xshift=-\tcboxedtitlewidth+55pt},
+        colframe=#1!30!black,
+        colback=#1!5,
+        colbacktitle=#1!5,
+        toprule=0pt, rightrule=0pt, bottomrule=0pt,
+        coltitle=black,
+        fonttitle=\itshape,
+    }
+}
+
+% Definindo o ambiente de demonstração
+\newtcbtheorem{demo}{Demonstração}{
+    libretext=cyan,
+}{th}
+
+\begin{document}
+\tableofcontents
+
+\chapter{Primitivas e derivadas}
+\section{Definição e propriedades}
+\label{sec:1.1}
+A derivada pode ser pensada como um ``operador'' $D$ que para uma função f
+suficientemente regular, ou seja, diferenciável, atribui uma outra função,
+sua derivada, na forma
+\[D\colon f \rightarrow f'.\]
+Por exemplo, usando os resultado em [4, exemplo 1.1.6], sabe-se que
+\[D\sen = \cos, \quad D\cos=-\sen.\]
+Dado que a derivada opera nesse ``universo'' de funções, dada uma função $f$
+em geral, cabe perguntar quando uma tal função resulta da forma $f = Dg$ para
+alguma $g$ apropriada. Em outras palavras, do ponto de vista algébrico, esta
+questão consiste em analisar o domínio do operador inverso $D^{-1}f=g$.
+Por questões históricas, denota-se
+\[\int{f}=g \Longleftrightarrow g'=f.\]
+Em tal caso, se diz que $g$ é uma \textbf{primitiva} de $f$. Os termos
+\textbf{antiderivada} e \textbf{integral indefinida} também costumam ser
+usados na literatura com o mesmo significado.
+
+Para uma função diferenciável $f$, o leitor não deveria ter nenhuma dificuldade
+em perceber que
+\[\int{f'}=f.\]
+Caso contrário, talvez não tenha entendido corretamente a definição de primitiva,
+em cujo caso seria recomendável revisar o conteúdo desde o começo da presente
+seção.
+
+Uma primeira propriedade que deve ser notada consiste em que a atribuição
+definica pela primitiva contém um traço de ambiguidadem no sentido que uma
+mesma função pode possuir várias primitivas diferentes. No entanto, a diferença
+entre duas primitivas quaisquer não pode ser arbitrária. Com maior precisão,
+tem-se
+\[\int{f}=g \wedge \int{f} = h \Longrightarrow g = h + c.\]
+para alguma constante $c \in \mathbb{R}$. Este resultado é um corolário do
+teorema do valor médio, vide [\autoref{sec:2.2}].
+
+Uma outra propriedade importante segue observando que, sendo a derivada um
+operador $linear$, ou seja,
+\[D(cf + g)=(cf+g)'=cf'+g'=cDf+Dg\]
+tal linearidade é herdada pela primitiva, ou seja,
+\[\int{(cf +g)}=c\int{f}+\int{g}.\]
+A verificação desta última identidade fica a cargo do leitor, mais como um
+exercício no uso da notação do que uma prova de perícia técnica.
+
+Finalmente, uma outra questão que o leitor não deveria ter dificuldade
+em se convencer é dada pela constatação de que uma maneira particularmente
+simples de obter uma tabela de primitivas consiste em ler uma tabela
+de derivadas no sentido contrário. A tabela 1.1 apresenta uma coletânea
+minimalista de primitivas.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{ | c | c | }
+        \hline\hline
+        Função & Primitiva \\
+        \hline
+        $x^{n}$ & $\frac{x^{n+1}}{n+1}$ \\
+        \hline
+        $\cos$ & $\sen$ \\
+        \hline
+        $\sen$ & $-\cos$ \\
+        \hline
+        $\exp$ & $\exp$ \\
+        \hline
+        $\frac{1}{x}$ & $\log$ \\
+        \hline
+        $\frac{1}{1 + x^2}$ & $\arctan$ \\
+        \hline\hline
+    \end{tabular}
+    \caption{Uma coletânea minimalista de primitivas.}
+\end{table}
+
+\section{Uma identidade notável}
+\label{sec:1.2}
+Nesta seção introdutória, o tratamento das séries é informal. No entanto,
+tais manipulações podem ser formalizadas rigorosamente usando polinômios de
+Taylor, incluindo estimativas adequadas do resto. Esta análise será adiada pelo
+momento. O leitor interessado pode consultar as seções 6.3 e 6.4.
+
+A identidade
+\[\frac{1}{1 + x}=1-x+x^2-x^3+\cdot\cdot\cdot\]
+como também
+\[\frac{1}{1 - x}=1+x+x^2+x^3+\cdot\cdot\cdot\]
+foram ambas estabelecidas em [\autoref{sec:6}]. Observe que
+\[\int{\frac{1}{1+x}}\D{x} = \log{(1 + x)}, \quad \int{x^n}\D{x}=\frac{x^{n+1}}{n+1}.\]
+Tomando a primitiva em ambos termos da primeira identidade acima, tem-se
+\[\log{(1 + x)}=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\cdot\cdot\cdot\]
+Analogamente, observando que
+\[\int{\frac{1}{1-x}}\D{x}=-\log{(1-x)}\]
+e tomando a primitiva em ambos termos da segunda identidade, tem-se
+\[-\log{(1-x)}=x+\frac{x^2}{2}+\frac{x^3}{3}+\frac{x^4}{4}+\cdot\cdot\cdot\]
+Combinando ambas séries para o logaritmo, resulta
+\[\log\frac{1+x}{1-x}=\log{(1+x)}-\log{(1-x)}\]
+\[=(x + x) + \left(\frac{x^2}{2}-\frac{x^2}{2}\right)+\left(\frac{x^3}{3}+\frac{x^3}{3}\right)+\left(\frac{x^4}{4}-\frac{x^4}{4}\right)+\cdot\cdot\cdot\]
+\[=2\left(x+\frac{x^3}{3}+\frac{x^5}{5}+\frac{x^7}{7}+\cdot\cdot\cdot\right)\]
+de onde segue que
+\[\frac{1}{2}\log{\frac{1+x}{1-x}}=x+\frac{x^3}{3}+\frac{x^5}{5}+\frac{x^7}{7}+\cdot\cdot\cdot\]
+
+Por outro lado, a identidade
+\[\frac{1}{1+x^2}=1-x^2+x^4-x^6+\cdot\cdot\cdot\]
+também foi estabelecida em [\autoref{sec:6}]. Agora, observando que
+\[\int{\frac{1}{1+x^2}}\D{x}=\arctan{x}\]
+e tomando a primitiva em ambos termos desta identidade, tem-se
+\[\arctan{x}=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7+\cdot\cdot\cdot}\]
+Seja $i$ um símbolo tal que $i^2$ = $i \cdot i$ pode ser substituído por $-1$
+em qualquer fórmula. Observe que
+\[i=i\]
+\[i^2=i\cdot i=-1\]
+\[i^3=i^2\cdot i=-1\cdot i = -i\]
+\[i^4=i^3 \cdot i = -i \cdot i = -(-1) = 1\]
+Logo, tem-se
+\[i^5=i^4 \cdot i = 1 \cdot i = i\]
+e a partir daqui as sucessivas potências repetem-se periodicamente a cada
+quatro, por exemplo:
+\[i^5=i, \quad i^6=-1, \quad i^7=-i, \quad i^8=1\]
+Usando essa tabela de potências do símbolo $i$ tem-se
+\[\arctan{ix}=ix-\frac{(ix)^3}{3}+\frac{(ix)^5}{5}-\frac{(ix)^7}{7}+\cdot\cdot\cdot\]
+\[=ix+i\frac{x^3}{3}+i\frac{x^5}{5}+i\frac{x^7}{7}+\cdot\cdot\cdot\]
+\[=i\left(x+\frac{x^3}{3}+\frac{x^5}{5}+\frac{x^7}{7}+\cdot\cdot\cdot\right)\]
+de onde segue que
+\[-i\arctan{ix}=x+\frac{x^3}{3}+\frac{x^5}{5}+\frac{x^7}{7}+\cdot\cdot\cdot\]
+Comparando com a identidade para o logaritmo estabelecida acima, obtém-se a
+seguinte identidade notável
+\[-i\arctan{ix}=\frac{1}{2}\log{\frac{1+x}{1-x}}\]
+Esta identidade é equivalente à fórmula de Euler, como o leitor pode verificar
+no exercício 1.5.1.
+
+Para quem ficar incomodado com o fato da identidade acima ter sido estabelecida
+através de manipulações informais de séries de potências, a fórmula de Euler
+será obtida de maneira independente, e rigorosa, na \autoref{sec:8.4}.
+
+Além disso, a identidade acima possui um equivalente que dispensa o uso
+do símbolo $i$, segundo o resultado do exercício 1.6.2.
+
+\section{Um exemplo revelador}
+As primitivas foram introduzidas na \autoref{sec:1.1}. Uma aplicação é fornecida
+na \autoref{sec:1.2} anterior, particulamente notável no sentido que o
+resultado final apresentado equivale à fórmula de Euler.
+
+No entanto, até agora não ficou clara a questão de, dada uma função arbitrária,
+determina se possui ou não uma primitiva. Menos ainda foi dito sobre como
+encontrar tal primitiva, caso a resposta da questão anterior seja afirmativa.
+
+Um fator que complica ambas questões consiste no fato que muitas funções,
+mesmo aquelas consideradas mais ``simples'', possuem primitivas que não
+são tão elementares assim, ou cuja determinação não possui nada de trivial,
+nem a resposta parece intuitiva. Por exemplo, o leitor pode verificar que
+\[\int{\log{x}}\D{x}=x\log{x}-x\]
+Para tanto, basta derivar o membro direito e verificar que o resultado
+corresponde à função no membro esquerdo. No entanto, como pode ser determinada
+essa primitiva em particular? Que tipo de cálculos devem ser desenvolvidos
+com tal finalidade?
+
+Colocando tais questões em um contexto mais amplo: Como surgem as primitivas?
+Existe algum ``mecanismo'' capaz de gerar primitivas? A seguir é apresentado
+um exemplo revelador para a questão da gênese das primitivas.
+
+A figura 1.1 mostra um setor circular no primeiro quadrante do círculo unitário,
+ou seja, de raio igual a 1. Observe que tal círculo é definido pela condição
+\[S_1=\{(x,y) \in \mathbb{R}^2\colon x^2+y^2=1\}\]
+de onde segue que
+\[x^2+y^2=1 \Longrightarrow y^2=1-x^2 \Longrightarrow y = \pm\sqrt{1-x^2}\]
+Em particular, o círculo unitário no semiplano $superior$ corresponde ao
+gráfico da função
+\[f(x)=\sqrt{1-x^2}\]
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth, height=0.45\textheight]{circulo}
+    \caption{Setor circular no círculo unitário.}
+\end{figure}
+\pagebreak
+
+Seja $F(x)$ a área limitada pelo gráfico desta função $f$ e o eixo horizontal,
+compreendida entre as abcissas $0$ e $x$. Observando a figura 1.1 tem-se
+\[\area{\widehat{ACB}}=F(x)-\area\widehat{Ax_0B}\]
+Denotando $a$ o arco subentendido pelo setor circular $\widehat{CAB}$, observe
+que
+\[x=\sen{a} \Longrightarrow a = \arcsen{x}\]
+Além disso, tem-se
+\[\area{\widehat{CAB}}=\frac{1}{2}(\arco)\cdot(\raio)=\frac{1}{2}a=\frac{1}{2}\arcsen{x}\]
+
+\chapter{Calculando áreas}
+\section{Aproximação por funções simples}
+\begin{demo*}{}{}
+    Uma prova no caso do intervalo $[0,1]$ consta em \autoref{sec:21.4}. A
+    mesma demonstração pode ser adaptada para o intervalo $[0,b]$ com $b > 0$
+    arbitrário como segue. Seja $\varepsilon > 0$ arbitrário. Dado que $[0,b]$ é
+    compacto, pelo teorema \autoref{sec:21.4} segue que $f$ é uniformemente
+    contínua. Portanto, existe $\delta > 0$ tal que
+    \[|x-y| < \delta \Longrightarrow |f(x) - f(y)| < \varepsilon\]
+    Considere uma partição do intervalo $[0,b]$ em $n$ subintervalos iguais,
+    de comprimento $\frac{b}{n}$, onde $frac{b}{n} < \delta$. Seja $g$ definida como
+    \[g(x)=f\left(\frac{b}{n}\left\lfloor{\frac{nx}{b}}\right\rfloor\right)\]
+    Observe que para todo $x \in [0,b]$ existe algum $k \in \{0,1,...,n\}$ tal
+    que $x$ pertence a $[\frac{bk}{n}, \frac{b(k+1)}{n}]$. Logo, tem-se
+    \[x \in \left[\frac{bk}{n}, \frac{b(k + 1)}{n}\right] \Longrightarrow \frac{bk}{n} \leqslant x < \frac{b(k+1)}{n} \Longrightarrow k \leqslant \frac{nx}{b} < k + 1\]
+    \[\Longrightarrow \frac{b}{n}\left\lfloor\frac{nx}{b}\right\rfloor=\frac{bk}{n}\]
+    de onde segue que
+    \[|f(x)-g(x)|=\left|f(x)-f\left(\frac{b\left\lfloor\frac{nx}{b}\right\rfloor}{n}\right)\right|=\left|f(x)-f\left(\frac{bk}{n}\right)\right| < \varepsilon\]
+    pois
+    \[x \in \left[\frac{bk}{n}, \frac{b(k+1)}{n}\right] \Longrightarrow \left|x-\frac{bk}{n}\right| < \frac{b}{n} < \delta\]
+    Dado que as duas últimas duas desigualdades vigoram para todo $x \in [0,b]$
+    segue que $||f-g|| < \varepsilon$.
+\end{demo*}
+Resulta como corolário que toda função $f$ contínua em $[0,b]$ pode ser
+aproximada uniformemente em tal intervalo por uma sequência $\{g_n\}$ de
+funções simples. Em outras palavras $||f-g_n|| \rightarrow 0$ quando $n$ tende
+para infinito. Com efeito, basta usar o resultado anterior com $\varepsilon=\frac{1}{n}$,
+para cada $n \in \mathbb{N}$.
+
+Observe que área determinada pelo gráfico das funções simples $g_n$ pode ser
+calculado somando a área de retângulos, como
+\[\int_{0}^{b}{g_n}=\sum_{k=0}^{n-1}{\frac{b}{n}\cdot g_n\frac{bk}{n}}=\frac{b}{n}\sum_{k=0}^{n-1}{g_n\frac{bk}{n}}\]
+\section{Funções trigonométricas}
+\label{sec:2.2}
+Considere a função $f(x)=\sen{(x)}$ no intervalo $[0, b]$ com $0 \leq b \leq \frac{\pi}{2}$.
+Em tal caso, tem-se
+\[\frac{b}{n}\sum_{k=0}^{n-1}{f\left(\frac{bk}{n}\right)}=\frac{b}{n}\sum_{k=0}^{n-1}{\sen{\left(\frac{bk}{n}\right)}}\]
+\section{Recapitulação}
+\section{Epílogo: O perigo mora nos detalhes}
+
+\chapter{Integral de Riemann}
+\section{Definição de integral}
+\section{Funções simples}
+\section{Lema de Riemann-Lebesgue}
+\section{Área do círculo unitário com trapézios}
+\section[Estimativa do valor de Pi]{Estimativa do valor de $\pi$}
+\section{Uma estimativa do fatorial}
+\section{Crescimento sublinear do logaritmo}
+
+\chapter{Propriedades da integral}
+\section{Integrabilidade em subintervalos}
+\section{Linearidade}
+\section{Integrais e desigualdades}
+\section{Produto de funções}
+
+\chapter{Funções contínuas e integral}
+\section{Integrabilidade das funções contínuas}
+\section{Teorema do valor médio para integrais}
+\section{Teorema fundamental do Cálculo}
+\begin{demo*}{}{}
+    \[Df=g\]
+\end{demo*}
+\section{Convergência uniforme e integrais}
+Seja agora $f \colon [a, b] \rightarrow \mathbb{R}$ contínua e considera uma
+sequência $\{g_n\}$ de funções simples tal que
+\[\lim_{n\rightarrow\infty}||f-g_n||=0\]
+como no teorema 2.1.1, lembrando que
+\[||f-g||=\sup{|f(x)-g(x)|\colon x \in [a,b]}.\]
+\begin{teorema} Se $f$ é contínua em $[a,b]$, então
+    \[\int_a^b{f}=\lim_{n\rightarrow\infty}\int_a^b{g_n}.\]
+\end{teorema}
+
+\chapter{Teorema fundamental do Cálculo}
+\section{Continuidade da integral}
+Teste
+\label{sec:6}
+\section{Primeiro teorema fundamental}
+\section{Segundo teorema fundamental}
+
+\section{Placeholder}
+\label{sec:8.4}
+\label{sec:21.4}
+\end{document}

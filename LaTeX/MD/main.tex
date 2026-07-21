@@ -1,0 +1,141 @@
+\documentclass{exam}
+
+\usepackage[portuguese]{babel}
+\usepackage[most]{tcolorbox}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{QED}
+
+\newtcbtheorem{resposta}{Resposta}{colback=cyan!15!white, colframe=cyan!90!black}{th}
+
+\begin{document}
+\begin{center}
+    \textbf{Universidade de São Paulo}
+    \\
+    \textbf{Escola de Artes, Ciências e Futebol}
+    \\
+    \textbf{ACH2013 -- Matemática Discreta -- 2º sem. 2025}
+    \\
+    \textbf{1ª Prova --- Data: 10 out. 2025}
+\end{center}
+\begin{questions}
+    \question O conectivo lógico \textbf{nor} (``not-or'') é definido pela
+    relação $p \downarrow q \equiv \neg(p \lor q)$.
+    \begin{parts}
+        \part Reescreva $\neg p$ e $p \land q$ empregando somente o conectivo
+        lógico \textbf{nor};
+        \part Reescreva $p \rightarrow q$ empregando somente o conectivo lógico
+        \textbf{nor}.
+    \end{parts}
+    \begin{resposta}{}{}
+        \[p \downarrow p \equiv \neg(p \lor p) \equiv \neg p \land \neg p \equiv \neg p\]
+        \[p \rightarrow q \equiv \neg p \lor q \equiv \neg(p \land \neg q) \equiv \neg(\neg p \downarrow q)\]
+    \end{resposta}
+
+    \question Prove ou disprove a proposição: $\forall n \in \mathbb{N}$, $n^2+4n$
+    é ímpar se e somente se $n$ é ímpar.
+    \begin{resposta}{}{}
+        \begin{proof}
+            Vamos considerar $n$ par: 
+            \[n = 2k, k \in \mathbb{N} \rightarrow n^2+4n = (2k)^2+4(2k)=4k^2+8k=
+            2(2k^2+4k)=2b\]
+            $\implies$ Para todo $n \in \mathbb{N}$ par, a expressão é par.\\
+        \end{proof}
+        \begin{proof}
+            Vamos considerar $n$ ímpar:
+            \[n = 2k + 1, k \in \mathbb{N} \rightarrow n^2+4n = (2k + 1)^2+4(2k + 1) \]
+            \[=4k^2+1^2+4k+8k+4=4k^2+12k+4+1=2(2k^2+6k+2) + 1 = 2b + 1\]
+            $\implies$ Para todo $n \in \mathbb{N}$ ímpar, a expressão é ímpar.\\
+        \end{proof}
+        $\implies$ A proposição é verdadeira.
+    \end{resposta}
+
+    \question Dados $n$ números reais $a_1,\dots,a_n$ distintos, prove
+    por contradição que pelo menos um desses números deve ser maior que a média dos números.
+    \begin{resposta}{}{}
+        \[\nexists a_i \in \{a_1,\dots,a_n\} : a_i > \frac{a_1+\dots+a_n}{n}\]
+        \[\rightarrow \forall a_i \in \{a_1,\dots,a_n\}, a_i \leq \frac{a_1+\dots+a_n}{n}\]
+        Vamos considerar a média do conjunto como o centro de massa de uma barra. Se todos
+        itens forem menores do que a média, a barra penderá para a esquerda. Se todos
+        forem iguais a média, o enunciado é impossível. Portanto deve existir $a_i$ maior do
+        que a média para balancear o peso.
+    \end{resposta}
+
+    \question Estabeleça os seguintes resultados usando o Princípio de indução finita:
+    \begin{parts}
+        \part $\frac{1}{1\cdot2}+\frac{1}{2\cdot3}+\dots+\frac{1}{(n-1)n}=\frac{n-1}{n}$;
+        \part $5^n-4n-1$ é divisível por 16;
+        \part $P_n(x)=e^{-x^2}\left(\frac{d^n}{dx^n}\right)e^{x^2}$ é um polinômio de grau $n$.
+    \end{parts}
+    \begin{resposta}{}{}
+        \begin{proof}
+            \[\text{Caso base: } n = 2 \rightarrow \frac{1}{1\cdot2}=\frac{2-1}{2} = \frac{1}{2}\]
+            \[\text{Hipótese: Para um $k$ qualaquer, }\frac{1}{1\cdot2}+\dots+\frac{1}{(k-1)k}=\frac{k-1}{k}\]
+            \[\text{Indução: } \left(\frac{1}{1\cdot2}+\dots+\frac{1}{(k-1)k}\right) + \frac{1}{k(k+1)}\]
+            \[=\frac{k-1}{k}+\frac{1}{k(k+1)}=\frac{(k-1)(k+1)+1}{k(k+1)}=\frac{k^2-1^2+1}{k(k+1)}\]
+            \[=\frac{k^2}{k(k+1)}=\frac{k}{k+1}\]
+        \end{proof}
+        \begin{proof}
+            \[\text{Caso base: } n = 1 \rightarrow 5^1-4\cdot 1 - 1 = 5 - 4 - 1 = 0 \text{ é divisível por 16}\]
+            \[\text{Hipótese: Para um $k$ qualquer, } (5^k - 4k - 1) \text{ é divisível por 16}\]
+            \[\text{Indução: Fica a cargo do leitor}\]
+        \end{proof}
+        \begin{proof}
+            \[\text{Caso base: } n = 1 \rightarrow P_1(x)=e^{-x^2}\left(\frac{d}{dx}\right)e^{x^2}=e^{-x^2}e^{x^2}2x = 2x\]
+            \[\text{Hipótese: Para um $k$ qualquer, } P_k(x)=e^{-x^2}\left(\frac{d^k}{dx^k}\right)e^{x^2}\]
+            \[\text{Indução: } P_{k + 1}(x) = e^{-x^2}\left(\frac{d^{k+1}}{dx^{k+1}}\right)e^{x^2}\]
+            \[=e^{-x^2}\left(\frac{d}{dx}\left(\frac{d^k}{dx^{k}}e^{x^2}\right)\right)
+            = e^{-x^2}\left(\frac{d}{dx}P_k(x)e^{x^2}\right)\]
+            \[e^{-x^2}(P'_k(x)e^{x^2}+P_k(x)e^{x^2}2x) = P'_k(x) + P_k(x)\cdot2x=P_{k+1}(x)\]
+        \end{proof}
+    \end{resposta}
+    
+    \question Seja $A = \{a_1,a_2,a_3,a_4,a_5\}$ um conjunto formado por cinco
+    números inteiros distintos $1 \leq a_i \leq 8$. Mostre que as somas dos elementos
+    de cada um dos subconjuntos não-vazios de $A$ não podem ser todas diferentes
+    entre si.
+    \begin{resposta}{}{}
+        \begin{proof}
+            \[\left|\wp(A)\right| - 1= 2^5 - 1 = 32 - 1 \text{ (Retirar o conjunto vazio.)}\]
+            Todas as somas são limitadas superiormente por $8 + 7 + 6 + 5 + 4 = 30$  e inferiormente por $1$, precisamos
+            associar cada uma delas a cada um dos 31 conjuntos não-vazios. Não é
+            difícil perceber que uma delas precisará se repetir.
+            
+        \end{proof}
+    \end{resposta}
+    
+    \question Sejam $A$, $B$, $C$ três subconjuntos finitos quaisquer de um conjunto
+    universo $\Omega$ dado.
+    \begin{parts}
+        \part Simplifique a expressão $\overline{\overline{(A\cup B) \cap C} \cup \overline{B}}$,
+        onde $\overline{X}=\{x : x \notin X\}$ denota o complemento de $X$;
+        \part Mostre que $A \bigtriangleup B = \overline{A} \bigtriangleup \overline{B}$,
+        onde $A \bigtriangleup B = (A \setminus B) \cup (B \setminus A)$ é a diferença simétrica
+        entre os conjuntos $A$ e $B$, com $A \setminus B = \{x : x \in A, x \notin B\} = A \cap \overline{B}$;
+        \part Encontre uma expressão para $|A \cup B \cup C|$ em termos de $A$, $B$, $C$
+        e suas interseções.
+    \end{parts}
+    \begin{resposta}{}{}
+        $p \equiv$ ``$x : x \in A$'', $q \equiv$ ``$x : x \in B$'', $r \equiv$ ``$x : x \in C$''.
+        \begin{proof}
+            \[\overline{\overline{(A\cup B) \cap C} \cup \overline{B}} \equiv
+            \neg(\neg((p \lor q) \land r) \lor \neg q) \equiv\]
+            \[\equiv ((p \lor q) \land r) \land q \equiv ((p \land r) \lor (q \land r)) \land q\]
+            \[\equiv ((p \land r) \land q) \lor ((q \land r) \land q)\]
+            \[\equiv (p \land r \land q) \lor (q \land r)\]
+            \[p \land q \land r \subseteq q \land r\]  
+            \[\implies (p \land q \land r) \lor (q \land r) \equiv q \land r \equiv B \cap C\]
+        \end{proof}
+        \begin{proof}
+            \[A \bigtriangleup B = (A \setminus B) \cup (B \setminus A) = 
+            (A \cap \overline{B}) \cup (B \cap \overline{A})\]
+            \[= (\overline{A} \cap B) \cup (\overline{B}\cap A) = (\overline{A} \setminus \overline{B}) \cup (\overline{B} \setminus \overline{A})\]
+            \[=\overline{A}\bigtriangleup \overline{B}\]
+        \end{proof}
+        \begin{proof}
+            \[|A\cup B\cup C| = |A| + |B| + |C| - (|A\cap B| + |A\cap C| + |B\cap C|) + |A\cap B \cap C|\]
+        \end{proof}
+    \end{resposta}
+
+\end{questions}
+\end{document}
